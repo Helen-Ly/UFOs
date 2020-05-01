@@ -32,4 +32,29 @@ function buildTable(data){
 
     });
 
-}
+};
+
+// Create function to filter table from input of the 'click'
+function handleClick(){
+
+    // Variable to hold our date data taken from the id='datetime' in HTML | property() = grab value for date variable
+    let date = d3.select('#datetime').property('value');
+
+    // Set a default filter
+    let filteredData = tableData;
+
+    // if date present, filter by that date
+    if (date){
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+
+    // Call buildTable with filtered data, if not date entered, then it'll be just tableData
+    buildTable(filteredData);
+
+};
+
+// Attach an event to listen for the form button, when clicked call handleClick function
+d3.select('#filter-btn').on('click', handleClick);
+
+// Build the table when the page loads
+buildTable(tableData);
