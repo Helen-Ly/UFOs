@@ -34,27 +34,80 @@ function buildTable(data){
 
 };
 
-// Create function to filter table from input of the 'click'
-function handleClick(){
+// This function will replace your handleClick function
+function updateFilters() {
 
-    // Variable to hold our date data taken from the id='datetime' in HTML | property() = grab value for date variable
+    // Keep track of all filters and put inside function to reset each time if no filters present
+    var filterSet = [];
+  
+    // Save the element, value, and id of the filter that was changed
     let date = d3.select('#datetime').property('value');
-
-    // Set a default filter
-    let filteredData = tableData;
-
-    // if date present, filter by that date
+    let city = d3.select('#city').property('value');
+    let state = d3.select('#state').property('value');
+    let country = d3.select('#country').property('value');
+    let shape = d3.select('#shape').property('value');
+  
+  
+    // If a filter value was entered then add that filterId and value
+    // to the filters list. Otherwise, clear that filter from the filters object
     if (date){
-        filteredData = filteredData.filter(row => row.datetime === date);
+  
+      filterSet.push({ k: 'datetime', v: date });
+  
     };
-
-    // Call buildTable with filtered data, if not date entered, then it'll be just tableData
+  
+    if (city){
+  
+      filterSet.push({ k: 'city', v: city });
+  
+    };
+  
+    if (state){
+  
+      filterSet.push({ k: 'state', v: state });
+  
+    };
+  
+    if (country){
+  
+      filterSet.push({ k: 'country', v: country });
+  
+    };
+  
+    if (shape){
+  
+      filterSet.push({ k: 'shape', v: shape });
+  
+    };
+   
+  
+    // Call function to apply all filters and rebuild the table
+    filterTable(filterSet);
+  };
+  
+  function filterTable(filterSet) {
+  
+    // Set the filteredData to the tableData
+    let filteredData = tableData;
+  
+    // Loop through all of the filters and keep any data that
+    // matches the filter values
+    
+    for( let i = 0; i < filterSet.length; i++){
+      let k = filterSet[i].k;
+      let v = filterSet[i].v;
+      
+                      // ie. row => row.shape === 'rectangle'
+      filteredData = filteredData.filter(row => row[k] === v);
+    };
+  
+    // Finally, rebuild the table using the filtered Data
     buildTable(filteredData);
-
-};
-
-// Attach an event to listen for the form button, when clicked call handleClick function
-d3.select('#filter-btn').on('click', handleClick);
-
-// Build the table when the page loads
-buildTable(tableData);
+  };
+  
+  // Attach an event to listen for changes to each filter
+  // Hint: You'll need to select the event and what it is listening for within each set of parenthesis
+  d3.selectAll('#filter-btn').on('click', updateFilters);
+  
+  // Build the table when the page loads
+  buildTable(tableData);

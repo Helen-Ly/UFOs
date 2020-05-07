@@ -1,0 +1,14 @@
+/* Change text color of whole webpage */
+body {
+
+    color: #f7f7f7;
+
+}
+
+/* Add image as background for div tag with class jumbotron */
+.jumbotron {
+
+    background-image: url('../images/nasa.jpg');
+    background-size: 100% 100%;
+    text-align: center;
+}
