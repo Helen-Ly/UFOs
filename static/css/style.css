@@ -12,3 +12,10 @@ body {
     background-size: 100% 100%;
     text-align: center;
 }
+
+/* Align the filter labels and input box */
+.input_filter {
+
+    text-align: left;
+    float: right;
+}
