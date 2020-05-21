@@ -45,7 +45,7 @@ If we implement these two recommendations, our webpage will become more robust a
     - *static* folder
     - index.html
 
-2. Open Visual Studio Code from your projects folder.
+2. Open Visual Studio Code from your project's folder.
 
 3. Open the index.html in your browser and enter the input for the filters.
 
